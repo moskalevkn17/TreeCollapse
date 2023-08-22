@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TreeCollapse.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="250"
+             x:Class="TreeCollapse.Views.MainView"
+             x:DataType="vm:MainViewModel">
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainViewModel />
+	</Design.DataContext>
+	
+	<StackPanel>
+
+
+	<TreeView ItemsSource="{Binding Nodes}">
+		
+		<TreeView.Styles>
+			<Style Selector="TreeViewItem">
+				<Setter Property="IsExpanded" Value="{Binding (vm:Outer).IsExpanded}"/>
+				<Setter Property="Background" Value="{Binding Back}"/>
+			</Style>
+		</TreeView.Styles>
+		
+		<TreeView.DataTemplates>
+			<TreeDataTemplate DataType="vm:Outer" ItemsSource="{Binding Items}">
+				<TextBox Text="{Binding Name}"/>
+			</TreeDataTemplate>
+			<TreeDataTemplate DataType="vm:Inner">
+				<TextBox Text="{Binding Name}"/>
+			</TreeDataTemplate>
+		</TreeView.DataTemplates>
+		
+	</TreeView>
+
+	<Button Content="Click!" Command="{Binding Toggle}"></Button>
+	</StackPanel>
+</UserControl>
