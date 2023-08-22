@@ -10,12 +10,6 @@ namespace TreeCollapse.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
-    public Color Back => Colors.Red;
-    public bool IsExpanded 
-    {
-        get { return _isExpanded; }
-        set { _isExpanded = value; OnPropertyChanged(); OnPropertyChanged("Nodes"); }
-    }
     public List<TreeItem> Nodes { get; set; } = new List<TreeItem>()
     {
         new TreeItem()
@@ -30,8 +24,6 @@ public class MainViewModel : ViewModelBase
         }
     };
 
-    private bool _isExpanded;
-
     public ICommand Toggle => new RelayCommand(() =>
     {
         foreach (var item in Nodes)
@@ -43,7 +35,6 @@ public class MainViewModel : ViewModelBase
 
 public class TreeItem : ViewModelBase
 {
-    public Color Back => Colors.Blue;
     public bool IsExpanded
     {
         get { return _isExpanded; }

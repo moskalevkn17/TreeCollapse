@@ -20,7 +20,6 @@
 		<TreeView.Styles>
 			<Style Selector="TreeViewItem" x:DataType="vm:TreeItem">
 				<Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
-				<Setter Property="Background" Value="{Binding Back}"/>
 			</Style>
 		</TreeView.Styles>
 		
