@@ -18,17 +18,14 @@
 	<TreeView ItemsSource="{Binding Nodes}">
 		
 		<TreeView.Styles>
-			<Style Selector="TreeViewItem">
-				<Setter Property="IsExpanded" Value="{Binding (vm:Outer).IsExpanded}"/>
+			<Style Selector="TreeViewItem" x:DataType="vm:TreeItem">
+				<Setter Property="IsExpanded" Value="{Binding IsExpanded}"/>
 				<Setter Property="Background" Value="{Binding Back}"/>
 			</Style>
 		</TreeView.Styles>
 		
 		<TreeView.DataTemplates>
-			<TreeDataTemplate DataType="vm:Outer" ItemsSource="{Binding Items}">
-				<TextBox Text="{Binding Name}"/>
-			</TreeDataTemplate>
-			<TreeDataTemplate DataType="vm:Inner">
+			<TreeDataTemplate DataType="vm:TreeItem" ItemsSource="{Binding Items}">
 				<TextBox Text="{Binding Name}"/>
 			</TreeDataTemplate>
 		</TreeView.DataTemplates>

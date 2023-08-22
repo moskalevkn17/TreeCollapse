@@ -1,4 +1,6 @@
-﻿using Avalonia.Media;
+﻿using System;
+using System.Collections;
+using Avalonia.Media;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -14,15 +16,32 @@ public class MainViewModel : ViewModelBase
         get { return _isExpanded; }
         set { _isExpanded = value; OnPropertyChanged(); OnPropertyChanged("Nodes"); }
     }
-    public List<Outer> Nodes { get; set; } = new List<Outer>() { new Outer(), new Outer() };
+    public List<TreeItem> Nodes { get; set; } = new List<TreeItem>()
+    {
+        new TreeItem()
+        {
+            Name = "Outer 1",
+            Items = { new TreeItem(){Name = "Child 1.1"}, new TreeItem(){Name = "Child 1.2"}}
+        }, 
+        new TreeItem()
+        {
+            Name = "Outer 2",
+            Items = { new TreeItem(){Name = "Child 2.1"}, new TreeItem(){Name = "Child 2.2"}}
+        }
+    };
 
     private bool _isExpanded;
 
-    public ICommand Toggle => new RelayCommand(() => 
-    IsExpanded = !IsExpanded);
+    public ICommand Toggle => new RelayCommand(() =>
+    {
+        foreach (var item in Nodes)
+        {
+            item.IsExpanded = !item.IsExpanded;
+        }
+    });
 }
 
-public class Outer : ViewModelBase
+public class TreeItem : ViewModelBase
 {
     public Color Back => Colors.Blue;
     public bool IsExpanded
@@ -30,14 +49,11 @@ public class Outer : ViewModelBase
         get { return _isExpanded; }
         set { _isExpanded = value; OnPropertyChanged(); }
     }
-    public string Name { get; set; } = "Outer";
-    public List<Inner> Items { get; set; } = new List<Inner>() { new Inner(), new Inner() };
+    public string Name { get; set; } = "Node";
+    
+    public List<TreeItem> Items { get; set; } = new List<TreeItem>();
+    
     private bool _isExpanded;
 }
 
-public class Inner
-{
-    public Color Back => Colors.Green;
-    public string Name { get; set; } = "Inner";
-}
 
